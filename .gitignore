@@ -37,5 +37,5 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .vscode
 
 # docs
-CLAUDE.md
-docs/
+# CLAUDE.md
+# docs/

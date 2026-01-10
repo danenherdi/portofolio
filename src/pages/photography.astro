@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Photography | Danendra Herdiansyah">
+  <main class="flex-1 flex items-center justify-center p-8">
+    <div class="text-center max-w-4xl">
+      <h1 class="text-5xl font-bold mb-6">
+        Photography
+      </h1>
+      <p class="text-xl opacity-80 mb-8">
+        Motorsport • Documentary • Moments
+      </p>
+
+      <div class="glass-light p-8 rounded-lg">
+        <p class="text-lg opacity-70">
+          Gallery coming soon...
+        </p>
+      </div>
+
+      <div class="mt-8">
+        <a href="/" class="btn btn-primary">
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Set theme to photography (light mode)
+    document.documentElement.setAttribute('data-theme', 'photography');
+  </script>
+</Layout>

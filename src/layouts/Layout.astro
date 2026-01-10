@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Personal portfolio showcasing engineering and photography work.' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Prevent FOUC: Apply theme before render -->
+    <script is:inline>
+      function initTheme() {
+        const stored = localStorage.getItem('theme');
+        const path = window.location.pathname;
+
+        let theme = 'engineering'; // default
+
+        if (stored && (stored === 'engineering' || stored === 'photography')) {
+          // User has set a preference
+          theme = stored;
+        } else if (stored === 'system') {
+          // Use route-based logic
+          theme = path.startsWith('/photography') ? 'photography' : 'engineering';
+        } else {
+          // No preference, use route-based
+          theme = path.startsWith('/photography') ? 'photography' : 'engineering';
+        }
+
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+
+      initTheme();
+    </script>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <slot />
+
+    <!-- Handle theme changes on navigation (Astro View Transitions) -->
+    <script>
+      import { getInitialTheme, setTheme, applyTheme, getRouteTheme } from '../store/theme';
+
+      // Initialize theme on first load
+      const initialTheme = getInitialTheme();
+      applyTheme(initialTheme);
+
+      // Handle route changes with View Transitions
+      document.addEventListener('astro:after-swap', () => {
+        const userTheme = localStorage.getItem('theme');
+
+        if (userTheme && userTheme !== 'system') {
+          // User has explicit preference, apply it
+          applyTheme(userTheme as 'engineering' | 'photography');
+        } else {
+          // Use route-based theme
+          const routeTheme = getRouteTheme(window.location.pathname);
+          document.documentElement.setAttribute('data-theme', routeTheme);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Danendra Herdiansyah | Portfolio">
+    <main class="flex-1 flex items-center justify-center p-8">
+        <div class="text-center max-w-2xl">
+            <h1 class="text-6xl font-bold mb-4">whoami</h1>
+            <p class="text-xl mb-8 font-mono">
+                .\ Danendra Herdiansyah | CS UI '26
+            </p>
+            <p class="text-lg opacity-80 mb-12">
+                Architecting Systems. Capturing Moments.
+            </p>
+
+            <div class="flex gap-4 justify-center">
+                <a
+                    href="/projects"
+                    class="glass-dark p-6 rounded-lg block transition-transform hover:scale-105 hover:bg-white/10"
+                >
+                    <div>
+                        <h2 class="text-2xl mb-2 font-display">Engineering</h2>
+                        <p class="opacity-70 text-sm">Systems & DevOps</p>
+                    </div>
+                </a>
+                <a
+                    href="/photography"
+                    class="glass-light p-6 rounded-lg block transition-transform hover:scale-105 hover:bg-black/10"
+                >
+                    <div>
+                        <h2 class="text-2xl mb-2 font-display">Photography</h2>
+                        <p class="opacity-70 text-sm">Motorsport & Documentary</p>
+                    </div>
+                </a>
+            </div>
+
+            <p class="mt-12 text-sm opacity-60">
+                Current theme: <span class="font-mono" id="theme-display"
+                    >engineering</span
+                >
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Display current theme
+        const themeDisplay = document.getElementById("theme-display");
+        if (themeDisplay) {
+            const currentTheme =
+                document.documentElement.getAttribute("data-theme");
+            themeDisplay.textContent = currentTheme || "engineering";
+        }
+    </script>
+</Layout>

@@ -1,0 +1,29 @@
+{
+  "name": "portofolio",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "devDependencies": {
+    "@astrojs/svelte": "^7.2.5",
+    "@types/bun": "latest",
+    "astro": "^5.16.8",
+    "autoprefixer": "^10.4.23",
+    "daisyui": "^5.5.14",
+    "svelte": "^5.46.1",
+    "tailwindcss": "^4.1.18"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@tailwindcss/vite": "^4.1.18",
+    "nanostores": "^1.1.0"
+  }
+}

@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Engineering | Danendra Herdiansyah">
+  <main class="flex-1 flex items-center justify-center p-8">
+    <div class="text-center max-w-4xl">
+      <h1 class="text-5xl font-bold mb-6">
+        Engineering
+      </h1>
+      <p class="text-xl opacity-80 mb-8">
+        Systems Programming • DevOps • Backend
+      </p>
+
+      <div class="glass-dark p-8 rounded-lg">
+        <p class="text-lg opacity-70">
+          Projects coming soon...
+        </p>
+      </div>
+
+      <div class="mt-8">
+        <a href="/" class="btn btn-primary">
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Set theme to engineering (dark mode)
+    document.documentElement.setAttribute('data-theme', 'engineering');
+  </script>
+</Layout>

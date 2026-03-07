@@ -1,15 +1,18 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = 'Personal portfolio showcasing engineering and photography work.' } = Astro.props;
+const {
+  title,
+  description = "Danendra Herdiansyah | Cloud Computing & Distributed Systems Engineer.",
+} = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,51 +24,48 @@ const { title, description = 'Personal portfolio showcasing engineering and phot
     <!-- Prevent FOUC: Apply theme before render -->
     <script is:inline>
       function initTheme() {
-        const stored = localStorage.getItem('theme');
-        const path = window.location.pathname;
+        const stored = localStorage.getItem("theme");
+        let theme = "dark"; // default to dark for tech aesthetics
 
-        let theme = 'engineering'; // default
-
-        if (stored && (stored === 'engineering' || stored === 'photography')) {
-          // User has set a preference
+        if (stored && (stored === "dark" || stored === "light")) {
           theme = stored;
-        } else if (stored === 'system') {
-          // Use route-based logic
-          theme = path.startsWith('/photography') ? 'photography' : 'engineering';
-        } else {
-          // No preference, use route-based
-          theme = path.startsWith('/photography') ? 'photography' : 'engineering';
+        } else if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: light)").matches
+        ) {
+          theme = "light";
         }
 
-        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute("data-theme", theme);
       }
 
       initTheme();
     </script>
   </head>
-  <body class="flex flex-col min-h-screen">
+  <body
+    class="flex flex-col min-h-screen selection:bg-cyan-500/30 selection:text-cyan-50"
+  >
+    <!-- Navbar placeholder could go here eventually -->
+
     <slot />
 
     <!-- Handle theme changes on navigation (Astro View Transitions) -->
     <script>
-      import { getInitialTheme, setTheme, applyTheme, getRouteTheme } from '../store/theme';
+      // Setup simple listener for view transitions if added later
+      document.addEventListener("astro:after-swap", () => {
+        const stored = localStorage.getItem("theme");
+        let theme = "dark";
 
-      // Initialize theme on first load
-      const initialTheme = getInitialTheme();
-      applyTheme(initialTheme);
-
-      // Handle route changes with View Transitions
-      document.addEventListener('astro:after-swap', () => {
-        const userTheme = localStorage.getItem('theme');
-
-        if (userTheme && userTheme !== 'system') {
-          // User has explicit preference, apply it
-          applyTheme(userTheme as 'engineering' | 'photography');
-        } else {
-          // Use route-based theme
-          const routeTheme = getRouteTheme(window.location.pathname);
-          document.documentElement.setAttribute('data-theme', routeTheme);
+        if (stored && (stored === "dark" || stored === "light")) {
+          theme = stored;
+        } else if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: light)").matches
+        ) {
+          theme = "light";
         }
+
+        document.documentElement.setAttribute("data-theme", theme);
       });
     </script>
   </body>

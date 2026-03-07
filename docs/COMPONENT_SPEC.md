@@ -1,33 +1,41 @@
 # Component Specifications & Architecture
 
-## Design Philosophy: "Anti-Grid" & Glassmorphism
-We aim to break the rigid 12-column grid structure common in bootstrap/tailwind defaults. Layouts should feel organic, using overlapping layers, asymmetrical positioning, and soft depth (Glassmorphism).
+## Design Philosophy: "Tech Cloud Minimalism"
+The design language focuses on clean lines, subtle gradients, and functional depth. It breaks away from generic grid layouts by using asymmetrical floating elements ("GlassCards") layered over deep blue and purple gradient backgrounds.
 
 ## 1. Core Svelte Components
 
 ### `GlassCard.svelte`
-A foundational container for content.
+A foundational container for content, providing a frosted glass effect that sits above the background.
 *   **Props**:
     *   `intensity`: 'low', 'medium', 'high' (blur amount).
-    *   `border`: boolean (subtle white/dark border).
-    *   `hoverEffect`: boolean (scale/lift on hover).
-*   **Style**: Backdrop-blur, semi-transparent background (white/black alpha), subtle drop-shadow.
+    *   `border`: boolean (subtle slate gray or cyan neon border on hover).
+    *   `hoverEffect`: boolean (scale up slightly and enhance glow on hover).
+*   **Style**: Backdrop-blur (`backdrop-filter: blur(12px)`), semi-transparent background (e.g., `rgba(15, 23, 42, 0.7)`), subtle drop-shadow.
 
 ### `Orbiter.svelte` (Background Element)
-Purely decorative, animated background blobs.
+Purely decorative, animated background highlights that create a sense of deep space and cloud technology.
 *   **Props**:
-    *   `color`: 'magenta', 'cyan', 'white'.
+    *   `variant`: 'cyan', 'purple'.
     *   `size`: pixel/rem value.
     *   `speed`: animation duration.
-*   **Behavior**: Slowly floats around the screen using CSS keyframes or Svelte Spring.
+*   **Behavior**: Slowly floats or pulses in the background using CSS keyframes, with large blur radii to create soft gradients.
 
-### `MagneticButton.svelte`
-A button that gravitates slightly towards the cursor.
-*   **Logic**: Uses MouseEvent `clientXS/Y` to translate the button element slightly within a bounded radius.
+### `MetricCard.svelte`
+A focused component to highlight specific engineering achievements.
+*   **Props**:
+    *   `value`: e.g., "69%".
+    *   `label`: e.g., "Faster Response Time".
+    *   `icon`: Optional SVG identifier.
+*   **Style**: Highly contrasted, perhaps using Neon Cyan for the value to draw the eye to the impact.
 
-### `PhotoGrid.svelte` (Masonry/Anti-Grid)
-*   **Props**: `images[]`.
-*   **Layout**: CSS Grid with `grid-auto-flow: dense` or a custom masonry logic using column spanning (`col-span-2`, `row-span-2`) assigned randomly or via props to create an irregular, organic mosaic.
+### `TimelineItem.svelte`
+Used to display items in the Experience and Education sections.
+*   **Props**:
+    *   `title`: Role or Program Name.
+    *   `subtitle`: Company or Institution.
+    *   `dateRange`: String indicating duration.
+    *   `active`: Boolean (highlights node point in cyan).
 
 ## 2. Content Collections (Astro)
 
@@ -36,53 +44,56 @@ We will use Astro's `src/content/` for type-safe data management.
 ### Collection: `projects`
 *   **Schema**:
     ```typescript
+    import { z, defineCollection } from 'astro:content';
     const projects = defineCollection({
       schema: z.object({
         title: z.string(),
         tagline: z.string(),
-        tags: z.array(z.string()), // e.g., ["K8s", "Go", "DevOps"]
-        heroImage: z.string(),
+        tags: z.array(z.string()), // e.g., ["K8s", "Go", "GCP"]
+        metrics: z.array(z.string()).optional(), // specific performance wins
         repoUrl: z.string().url().optional(),
         demoUrl: z.string().url().optional(),
         featured: z.boolean().default(false),
-        themeOverride: z.enum(['dark', 'light']).optional(),
       })
     });
     ```
 
-### Collection: `photography`
+### Collection: `experience`
+Categorized into Professional Work Experience and Non-formal Education.
 *   **Schema**:
     ```typescript
-    const photography = defineCollection({
+    import { z, defineCollection } from 'astro:content';
+    const experience = defineCollection({
       schema: z.object({
-        title: z.string(),
-        date: z.date(),
-        location: z.string(),
-        category: z.enum(['Motorsport', 'Documentary', 'Portrait']),
-        src: z.string(), // Path to image
-        exif: z.object({
-            camera: z.string(), // e.g., "Sony A7IV"
-            lens: z.string(),
-            aperture: z.string(),
-            shutterSpeed: z.string(),
-            iso: z.number(),
-        }).optional(),
-      })
+        title: z.string(), // e.g., "Research Assistant" or "Cloud Computing Cohort"
+        organization: z.string(), // e.g., "CSL UI" or "Bangkit Academy"
+        startDate: z.date(),
+        endDate: z.date().optional(), // Null implies "Present"
+        category: z.enum(['Professional Work', 'Non-Formal Education']),
+      }) // Markdown body contains the bullet points
     });
     ```
 
-### Collection: `blog` (Technical Write-ups)
-*   Standard Moveable Type / Markdown frontmatter.
-*   Includes `readTime` (calculated) and `relatedProjects` (reference).
+### Collection: `skills`
+*   **Schema**:
+    ```typescript
+    import { z, defineCollection } from 'astro:content';
+    const skills = defineCollection({
+      schema: z.object({
+        category: z.string(), // e.g., "Cloud & Infrastructure"
+        items: z.array(z.string()), // e.g., ["GCP", "AWS", "Kubernetes"]
+        order: z.number().default(99),
+      })
+    });
+    ```
 
 ## 3. Global Components
 
 ### `ThemeToggle.svelte`
-*   **Visual**: A toggle switch or icon morph (Sun <-> Moon).
-*   **Function**: Updates the global store and `localStorage`.
-*   **Placement**: Fixed bottom-right or top-right.
+*   **Function**: Allows user to override the system theme preference (Light <-> Dark), updating the global store and `localStorage`.
 
 ### `CmdPalette.svelte` (Command K)
 *   Professional/Developer shortcut menu.
-*   Opens search, navigation, and theme switching via keyboard shortcuts.
-*   **Feel**: Like VS Code or Spotlight.
+*   Opens search, navigation, and quick links via keyboard shortcuts (`Cmd+K`).
+*   **Feel**: Like VS Code, Raycast, or Spotlight.
+

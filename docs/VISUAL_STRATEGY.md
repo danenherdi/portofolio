@@ -1,77 +1,65 @@
 # Visual Strategy & Theming Architecture
 
 ## Overview
-This document outlines the technical strategy for "Automatic Theme Switching" and the visual identity implementation for the personal portfolio. The core goal is to support a "Dual-Mode" aesthetic that dynamically adapts based on the user's journey (Engineering vs. Photography) while ensuring accessibility and performance.
+This document outlines the visual identity implementation for the personal portfolio. The core goal is to support a "Tech Cloud Minimalism" aesthetic that reflects a professional Cloud Computing & Distributed Systems Engineer persona. The design prioritizes readability, clean lines, and a modern technical feel.
 
 ## Visual Identity System
 
 ### Color Palette
+The color palette mixes deep blues and purples with clean, high-contrast text to create a minimal yet futuristic "cloud tech" atmosphere.
+
 | Token Name | Color Value | Usage |
 | :--- | :--- | :--- |
-| **Jet Black** | `#242424` (or #343434) | Primary Background (Engineering/Deep Dark) |
-| **Cloud Dancer** | `#F0EEE9` (or approx) | Primary Background (Photography/Light) |
-| **Dark Magenta** | `#8B008B` | Accent / Primary Action (Dark Mode) |
-| **Magenta** | `#FF00FF` | Accent / Highlights (Cyberpunk/Terminal hints) |
+| **Deep Space** | `#0f172a` | Primary Background (Dark Mode Base) |
+| **Nebula Purple** | `#2e1065` | Background Gradient / Soft glow effects |
+| **Slate Gray** | `#64748b` | Secondary Text / Borders |
+| **Cloud White** | `#f8fafc` | Primary Text (Dark Mode) / Background (Light Mode) |
+| **Neon Cyan** | `#22d3ee` | Accents / Active states / Highlights |
+| **Neon Purple** | `#c084fc` | Secondary accents / Gradient stops |
 
 ### Typography
-- **Headings**: Playfair Display (Serif, High Contrast) - *Elegant, Editorial.*
-- **Body**: Inter (Sans-serif, Neutral) - *Clean, Legible, Technical.*
+The project relies on clean, modern sans-serif fonts to evoke a technical and legible feel.
+- **Headings**: Inter or Geist (Sans-serif, Bold) - *Clean, Technical, Assertive.*
+- **Body**: Inter or SF Pro (Sans-serif, Neutral) - *Highly legible, Professional.*
+- **Monospace**: JetBrains Mono or Fira Code - *For code snippets and technical callouts.*
 
-## Automatic Theme Switching Strategy
+## Theming Strategy
 
-The theme switching logic will be **Route-Based** with a persistent user override/preference.
+The theme logic will be **System-Preference Based** with a persistent user override/toggle.
 
 ### State Logic (Svelte Store / Nano Store)
-We will use a lightweight global store to manage the theme state.
+We will use a lightweight global store to manage the Light/Dark theme state.
 
-1.  **Default Logic**:
-    *   `/` (Landing): **Dynamic/Hybrid** (Scroll-dependent or time-dependent).
-    *   `/projects` (Engineering): **Deep Dark** (Jet Black).
-    *   `/photography` (Gallery): **Light** (Cloud Dancer).
-    *   `/blog`: **System Preference** or previous route context.
-
+1.  **Default Logic**: Read `prefers-color-scheme` from the user's OS.
 2.  **Override Mechanism**:
-    *   A manual toggle implies "User Preference".
-    *   If `localStorage` has a 'theme' key, it takes precedence over route defaults.
-    *   A "Reset Experience" button can clear the override to restore the intended route-based storytelling.
+    *   A manual toggle allows switching between Light and Dark mode.
+    *   `localStorage` saves the user's preference, overriding the OS default on subsequent visits.
 
 ### Implementation Setup (Astro + View Transitions)
 
 **Middleware / Layout Script:**
-On route change (using Astro View Transitions `astro:after-swap`), we check the route path and update the `data-theme` attribute on `<html>`.
+On initial load and route changes (using Astro View Transitions), we check the store and update the `data-theme` attribute on the `<html>` root.
 
 ```javascript
 // Pseudo-code implementation strategy
-function updateThemeOnNavigation(path) {
+function applyTheme() {
     const userPref = localStorage.getItem('theme');
-    if (userPref) {
-        setTheme(userPref);
-        return;
-    }
-
-    if (path.startsWith('/photography')) {
-        setTheme('light'); // Cloud Dancer
-    } else if (path.startsWith('/projects')) {
-        setTheme('dark'); // Jet Black
-    } else {
-        // Landing page logic (controlled by specific landing page components)
-    }
+    const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const theme = userPref || systemPref;
+    
+    document.documentElement.setAttribute('data-theme', theme);
 }
 ```
 
 ## Accessibility & Transitions
 
 ### Transition Mechanics
-*   **Smooth Interpolation**: Avoid jarring white flashes. Use CSS `transition: background-color 0.5s ease-in-out, color 0.3s ease;`.
-*   **Contrast Ratios**:
-    *   **Dark Mode**: Ensure `Dark Magenta` text on `Jet Black` meets WCAG AA. May need a lighter tint of Magenta for text.
-    *   **Light Mode**: Ensure `Cloud Dancer` background provides enough contrast for `Jet Black` text.
+*   **Smooth Interpolation**: Use CSS `transition: background-color 0.4s ease, color 0.3s ease;` to avoid jarring flashes.
+*   **Glassmorphism**: Use `backdrop-filter: blur(12px)` with semi-transparent backgrounds (`rgba(15, 23, 42, 0.7)`) to create a "tech cloud" depth without sacrificing legibility.
 
 ### Reduced Motion
-Respect `prefers-reduced-motion`. Disable large background transitions or simplified fade-in/out if enabled.
+Respect `prefers-reduced-motion`. Disable large background gradients animations or simplify transitions if enabled.
 
-## Tailwind 4 & DaisyUI 5 Configuration
-*   Define custom themes in CSS variables as per Tailwind 4's new engine.
-*   Extend DaisyUI themes:
-    *   `[data-theme="engineering"]` -> Jet Black Base
-    *   `[data-theme="photography"]` -> Cloud Dancer Base
+## Tailwind 4 Configuration
+*   Define custom themes using CSS variables within Tailwind 4's theme engine.
+*   Setup gradients using `bg-gradient-to-br from-[#0f172a] to-[#2e1065]`.

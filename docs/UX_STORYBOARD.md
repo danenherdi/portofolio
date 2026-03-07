@@ -1,53 +1,58 @@
-# UX Storyboard: Landing Page Journey
+# UX Storyboard: Portfolio Journey
 
-## Concept: "The Dual Persona"
-The landing page serves as a cinematic introduction to the two core pillars of the identity: **Engineering (Logic/Structure)** and **Photography (Emotion/Capture)**.
-
-**Metaphor**: A lens focusing. We start with raw code/structure and transition into the captured world, or vice-versa.
+## Concept: "Tech Cloud Minimalism"
+The portfolio serves as a sleek, professional introduction to Danendra Herdiansyah as a Cloud Computing & Distributed Systems Engineer. The journey focuses on clarity, technical competence, and impact.
 
 ## Scroll Storytelling Sequence
 
-### Scene 1: The Terminal (Above the Fold)
-*   **Visual**: Deep Dark Mode (Jet Black). Minimalist.
+### Scene 1: The Introduction (About Me)
+*   **Visual**: Tech Cloud Minimalism. Deep blue/purple gradient background with frosted glass elements.
 *   **UI Elements**:
-    *   A simulated terminal prompt blinking or typing out `whoami`.
-    *   Output: `> Danendra Herdiansyah | CS UI '26`.
-    *   Subtext: "Architecting Systems."
-*   **Interaction**: User scrolls down. The terminal text "compiles" or "decompiles" into the next scene.
+    *   Clean, bold typography: "Danendra Herdiansyah".
+    *   Subtext/Role: "Cloud Computing & Distributed Systems Engineer".
+    *   Professional Summary: Highlighting expertise in Kubernetes, AWS, and system optimization based on the resume.
+*   **Interaction**: Subtle fade-in of elements on load. Floating neon cyan/purple orbiter effects in the deep background.
 
-### Scene 2: The Transition (The "Split")
-*   **Mechanism**: Scroll-scrubbing animation.
-*   **Visual**: The screen begins to split diagonally or fades into a glassmorphism overlay.
-*   **Narrative**: "Bridging the gap between strict logic and captured moments."
-*   **Animation**:
-    *   Code snippets (Go/Rust syntax) float on the left.
-    *   Faint contact sheet borders / film strips fade in on the right.
-    *   **Color Shift**: Background transitions from `#000000` to a deep gray, preparing for the light mode shift.
-
-### Scene 3: The Gallery (Photography Focus)
-*   **Visual**: Shift to Light Mode / Cloud Dancer (or high contrast dark with large imagery).
+### Scene 2: Professional Journey (Experience & Education)
+*   **Visual**: A vertical, scrollable minimal timeline.
 *   **UI Elements**:
-    *   Full-width parallax horizontal scroll of latest photography work (Motorsport/Documentary).
-    *   Typography switches to *Playfair Display* (Large, editorial style).
-    *   Floating caption: "Capturing Adrenaline."
-*   **Interaction**: Horizontal scroll interrupts the vertical flow temporarily (Pinning strategy), or standard vertical masonry layout.
+    *   **Professional Work Experience**: 
+        *   Research Assistant at CSL UI (Metrics: 69% faster, 58% less CPU).
+        *   Freelance Backend Engineer at Iro Art.
+    *   **Non-Formal Education & Programs**: 
+        *   Bangkit Academy 2024 (Cloud Computing Cohort).
+        *   Google Cloud Skills Boost, Dicoding, etc.
+*   **Interaction**: Timeline nodes illuminate (Neon Cyan) as the user scrolls past them.
 
-### Scene 4: The Convergence (Call to Action)
-*   **Visual**: Glassmorphism blend.
-*   **Content**: Navigation cards to "Projects" (Deep Dark) and "Gallery" (Light).
-*   **Footer**: Simple, clean, links to social/contact.
+### Scene 3: Building at Scale (Projects Showcase)
+*   **Visual**: Grid of sleek `GlassCard` components.
+*   **UI Elements**:
+    *   Card for **Intelligent Adaptive Caching**: Highlights the Go framework, Prometheus/Grafana, and 94% latency reduction.
+    *   Card for **IsyaratKu (Capstone)**: Highlights cloud architecture and cross-functional leadership.
+*   **Interaction**: Hovering over a project card slightly lifts it and enhances the border glow, revealing quick metrics (e.g., tech stack tags).
 
-## Technical Implementation (Svelte)
+### Scene 4: The Engine Room (Tech Stack & Skills)
+*   **Visual**: A dense but organized grid or marquee of technical skills.
+*   **UI Elements**:
+    *   Categories: Cloud & Infrastructure, CI/CD, Backend, Databases.
+    *   Badges for specific technologies (Go, Kubernetes, AWS, Docker).
+
+### Scene 5: Connection (Contact & Footer)
+*   **Visual**: Clean, centered call-to-action.
+*   **UI Elements**:
+    *   "Let's Build Together" or similar CTA.
+    *   Links to LinkedIn, GitHub, and Email.
+    *   Minimal footer with copyright.
+
+## Technical Implementation (Svelte + Astro)
 
 ### Libraries
-*   **GSAP (GreenSock)** or **Motion One**: For timeline-based scroll animations (ScrollTrigger).
-*   **Svelte Spring/Tweened**: For micro-interactions.
+*   **Motion (Framer Motion for Svelte / Motion One)**: For scroll-triggered reveal animations.
 
 ### Storyboard States
-1.  **State A (Hero)**: `opacity: 1`, `scale: 1`, `theme: dark`
-2.  **State B (Transition)**: `split: 50%`, `blur: 10px`, `theme: transition`
-3.  **State C (Gallery)**: `opacity: 1`, `scale: 1`, `theme: light`
+1.  **State A (Hero)**: `opacity: 1`, `translateY: 0`. Background ambient animation active.
+2.  **State B (Scroll Reveal)**: Elements have `opacity: 0`, `translateY: 20px` initially, transitioning to State A when intersecting the viewport via `IntersectionObserver`.
 
 ### Accessibility Note
-*   **Scroll-Jacking**: AVOID aggressive scroll-jacking. The scroll should feel natural. Use *scroll-linked* animations (scrubbing) rather than *scroll-locking* where possible, unless outlining a specific "pinned" section.
-*   Provide a "Skip Intro" button to jump straight to standard navigation for repeat visitors.
+*   Ensure the contrast ratio between text and the deep gradient backgrounds exceeds WCAG AA standards.
+*   Provide a "Skip to Content" link for keyboard navigation.

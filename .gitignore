@@ -39,3 +39,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # docs
 CLAUDE.md
 docs/
+
+# firebase
+.firebase/
+firebase-debug.log

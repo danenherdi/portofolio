@@ -1,81 +1,89 @@
-# Personal Portfolio
+# Danendra Herdiansyah | Personal Portfolio
 
-A modern, high-performance personal portfolio website built with Astro, showcasing a dual-identity theme system for Engineering and Photography.
+A modern, high-performance personal portfolio website built with Astro, showcasing my experience and projects in Cloud Computing, Distributed Systems, and Backend Engineering.
 
 ## Tech Stack
 
 - **Framework**: [Astro](https://astro.build) (v5)
-- **UI Framework**: [Svelte](https://svelte.dev)
-- **Styling**:
-  - [Tailwind CSS](https://tailwindcss.com) (v4)
-  - [DaisyUI](https://daisyui.com) (v5)
-- **State Management**: [Nanostores](https://github.com/nanostores/nanostores) (for theme management)
+- **UI Components**: [Svelte](https://svelte.dev)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) (v4) with [DaisyUI](https://daisyui.com) (v5)
+- **Content Management**: Astro Content Collections (Markdown)
+- **Deployment**: Firebase Hosting (Automated via GitHub Actions)
 - **Language**: TypeScript
-- **Runtime/Package Manager**: [Bun](https://bun.sh) (recommended)
+- **Package Manager**: [Bun](https://bun.sh) (Recommended)
 
 ## Features
 
-- **Dual Theme System**: Seamless switching between "Engineering" (Dark/Professional) and "Photography" (clean/gallery-focused) modes.
-- **Glassmorphism Design**: Custom utility classes for premium glass-like UI elements (`.glass-dark`, `.glass-light`).
-- **Responsive Layout**: Mobile-first design using Tailwind CSS.
-- **Type-Safe**: Full TypeScript integration for components and stores.
+- **Single-Page Architecture**: Smooth scrolling navigation across Hero, About, Experience, Projects, Skills, and Contact sections.
+- **Type-Safe Content**: Experience, featured projects, and technical skills are managed securely using Astro's Content Collections API.
+- **Dynamic Theme System**: Robust Dark/Light mode switching that preserves the modern glassmorphism aesthetic across both themes.
+- **Fully Responsive**: Mobile-first design with a custom off-canvas/collapsible hamburger navigation for small screens.
+- **CI/CD Pipeline**: Automated deployments to Firebase Hosting triggered by merges to the `main` branch via GitHub Actions.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js or [Bun](https://bun.sh) installed.
+- [Bun](https://bun.sh) (v1.0+) installed on your machine.
+- Firebase Project setup (if you wish to deploy).
 
 ### Installation
 
-1. Clone the repository (if initialized).
-2. Install dependencies:
-
-```bash
-bun install
-# or
-npm install
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/danenherdi/portofolio.git
+   cd portofolio
+   ```
+2. Install dependencies using Bun:
+   ```bash
+   bun install
+   ```
 
 ### Development
 
-Start the development server:
+Start the local development server:
 
 ```bash
 bun run dev
-# or
-npm run dev
 ```
 
-Visit `http://localhost:4321` to view the site.
+Visit `http://localhost:4321` to view your site with hot-module replacement.
 
-### Build
+### Build & Deploy
 
-Build the project for production:
+Build the static site for production:
 
 ```bash
 bun run build
-# or
-npm run build
 ```
+
+To deploy to Firebase Hosting locally (assuming Firebase CLI is authenticated):
+
+```bash
+bun run deploy
+```
+
+> Note: Production deployments are handled automatically by GitHub Actions upon merging to the `main` branch.
 
 ## Project Structure
 
 ```
 src/
-├── components/   # Reusable UI components
-├── layouts/      # Page layouts (Layout.astro)
-├── pages/        # Route definitions (index.astro, projects/, photography/)
-├── store/        # Global state (Nanostores theme.ts)
-├── styles/       # Global styles (Tailwind imports & custom CSS)
-└── env.d.ts      # TypeScript environment definitions
+├── components/   # UI components (Astro & Svelte)
+│   └── sections/ # Individual page sections (Hero, Experience, etc.)
+├── content/      # Markdown content collections
+│   ├── experience/
+│   ├── projects/
+│   └── skills/
+├── layouts/      # Base HTML layouts (Layout.astro)
+├── lib/          # Global utilities and SDK initializations (e.g., Firebase)
+├── pages/        # Route definitions (index.astro)
+└── styles/       # Global CSS and Tailwind directives (global.css)
 ```
 
-## Theming
+## Creating Content
 
-The project uses a sophisticated theming strategy:
+To add a new project, experience, or skill, simply create a new Markdown (`.md`) file in the corresponding `src/content/` directory. Astro will automatically parse the frontmatter to validate data types and render it on the page.
 
-- **Engineering Theme**: Dark mode, technical aesthetic, primary color Magenta/Dark Magenta.
-- **Photography Theme**: Light mode, gallery aesthetic, primary color Cloud Dancer.
-
-Themes are applied via `data-theme` attribute on the `<html>` tag and managed via `src/store/theme.ts`.
+---
+&copy; 2026 Danendra Herdiansyah. Designed & Built with Astro.

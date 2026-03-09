@@ -1,0 +1,70 @@
+{
+  "$ref": "#/definitions/experience",
+  "definitions": {
+    "experience": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "organization": {
+          "type": "string"
+        },
+        "startDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "endDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Professional Work",
+            "Non-Formal Education"
+          ]
+        },
+        "order": {
+          "type": "number",
+          "default": 99
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "organization",
+        "startDate",
+        "category"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

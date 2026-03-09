@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "deploy": "export $(grep '^PUBLIC_FIREBASE_PROJECT_ID' .env | xargs) && bun run build && bunx firebase deploy --project $PUBLIC_FIREBASE_PROJECT_ID --only hosting"
   },
   "devDependencies": {
     "@astrojs/svelte": "^7.2.5",
@@ -14,6 +15,7 @@
     "astro": "^5.16.8",
     "autoprefixer": "^10.4.23",
     "daisyui": "^5.5.14",
+    "firebase-tools": "^15.9.0",
     "svelte": "^5.46.1",
     "tailwindcss": "^4.1.18"
   },
@@ -21,9 +23,11 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.6",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
+    "firebase": "^12.10.0",
     "nanostores": "^1.1.0"
   }
 }

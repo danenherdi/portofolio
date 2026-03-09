@@ -8,6 +8,7 @@
 /* Tailwind CSS 4 Directives */
 @import "tailwindcss";
 @plugin "daisyui";
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* Custom CSS Variables */
 @theme {
@@ -64,10 +65,12 @@
     /* Adding a subtle gradient at the root level for deep background */
     background-image: radial-gradient(
       circle at top right,
-      var(--color-nebula-purple),
-      transparent 50%
+      var(--color-nebula-purple) 0%,
+      transparent 70%
     );
     background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: var(--color-cloud-white);
   }
 

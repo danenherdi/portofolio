@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 // import { getFirestore } from "firebase/firestore";
 // import { getAuth } from "firebase/auth";
 import { getAnalytics, type Analytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 
 // Astro exposes environment variables prefixed with PUBLIC_ to the client
 const firebaseConfig = {
@@ -17,6 +18,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Storage
+export const storage = getStorage(app);
 
 // Initialize Analytics only on the client side (browser) to prevent SSR build errors
 export let analytics: Analytics | undefined;

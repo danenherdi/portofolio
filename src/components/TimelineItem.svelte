@@ -67,7 +67,7 @@
         </h5>
 
         <div
-          class="text-sm opacity-80 leading-relaxed text-slate-700 dark:text-slate-300 prose prose-invert prose-p:my-1 prose-ul:my-1 prose-li:my-0"
+          class="text-sm opacity-80 leading-relaxed text-slate-700 dark:text-slate-300 [&_ul]:list-disc [&_ul]:ml-4 [&_ul]:space-y-1 [&_p]:mb-2 [&_li]:pl-1"
         >
           <slot />
         </div>

@@ -13,8 +13,12 @@ const professionalWork = allExperience
   )
   .sort(
     (a: CollectionEntry<"experience">, b: CollectionEntry<"experience">) =>
-      b.data.startDate.valueOf() - a.data.startDate.valueOf(),
-  );
+      {
+        const dateDiff = b.data.startDate.valueOf() - a.data.startDate.valueOf();
+        if (dateDiff !== 0) return dateDiff;
+        return (a.data.order ?? 99) - (b.data.order ?? 99);
+      }
+    );
 
 const nonFormalEducation = allExperience
   .filter(
@@ -23,7 +27,11 @@ const nonFormalEducation = allExperience
   )
   .sort(
     (a: CollectionEntry<"experience">, b: CollectionEntry<"experience">) =>
-      b.data.startDate.valueOf() - a.data.startDate.valueOf(),
+      {
+        const dateDiff = b.data.startDate.valueOf() - a.data.startDate.valueOf();
+        if (dateDiff !== 0) return dateDiff;
+        return (a.data.order ?? 99) - (b.data.order ?? 99);
+      }
   );
 
 // Helper function to format dates

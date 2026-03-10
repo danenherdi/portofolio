@@ -1,5 +1,5 @@
 ---
 category: "Backend & Programming"
-items: ["Go", "Kotlin", "Java", "JavaScript/TypeScript", "Python", "Rust", "REST API Development"]
+items: ["Go", "Kotlin", "Java", "JavaScript/TypeScript", "Python", "REST API Development", "SQL", "NoSQL"]
 order: 4
 ---

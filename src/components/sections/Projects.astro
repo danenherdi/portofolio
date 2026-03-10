@@ -36,8 +36,11 @@ const sortedProjects = allProjects.sort(
           const { Content } = await project.render();
           return (
             <ProjectCard
+              client:visible
               title={project.data.title}
               tagline={project.data.tagline}
+              subtitle={project.data.subtitle}
+              screenshots={project.data.screenshots}
               tags={project.data.tags}
               metrics={project.data.metrics}
               repoUrl={project.data.repoUrl}

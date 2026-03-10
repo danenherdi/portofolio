@@ -1,19 +1,26 @@
 ---
 import ProfileImage from "../ProfileImage.svelte";
+import TypewriterName from "../TypewriterName.svelte";
 ---
 
 <section
   id="about"
   class="min-h-screen w-full flex items-center justify-center relative overflow-hidden px-6 pt-20"
 >
-  <!-- Background Decoration (Orbiter placeholders) -->
-  <div
-    class="absolute top-0 sm:top-1/4 left-0 sm:left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-cyan-600/20 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none"
-  >
-  </div>
-  <div
-    class="absolute bottom-1/4 right-0 sm:right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-purple-600/20 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none"
-  >
+  <!-- Background Decoration (Animated Blobs) -->
+  <div class="absolute inset-0 z-0">
+    <div
+      class="absolute top-0 sm:top-[-10%] left-0 sm:left-[10%] w-72 sm:w-[500px] h-72 sm:h-[500px] bg-cyan-600/30 dark:bg-cyan-600/20 rounded-full blur-[80px] sm:blur-[120px] mix-blend-multiply opacity-70 animate-blob pointer-events-none"
+    >
+    </div>
+    <div
+      class="absolute top-[20%] right-0 sm:right-[10%] w-72 sm:w-[500px] h-72 sm:h-[500px] bg-purple-600/30 dark:bg-purple-600/20 rounded-full blur-[80px] sm:blur-[120px] mix-blend-multiply opacity-70 animate-blob [animation-delay:2s] pointer-events-none"
+    >
+    </div>
+    <div
+      class="absolute -bottom-32 left-1/2 w-72 sm:w-[500px] h-72 sm:h-[500px] bg-slate-400/30 dark:bg-slate-500/20 rounded-full blur-[80px] sm:blur-[120px] mix-blend-multiply opacity-70 animate-blob [animation-delay:4s] pointer-events-none"
+    >
+    </div>
   </div>
 
   <div
@@ -39,16 +46,7 @@ import ProfileImage from "../ProfileImage.svelte";
         System Architecture & Optimization
       </p>
 
-      <h1
-        class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-tight text-slate-900 dark:text-white w-full"
-      >
-        Danendra <br class="hidden sm:block" />
-        <span
-          class="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-purple-600 dark:from-cyan-400 dark:to-purple-500 inline-block pb-2"
-        >
-          Herdiansyah
-        </span>
-      </h1>
+      <TypewriterName client:load firstName="Danendra" lastName="Herdiansyah" />
 
       <h2
         class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium max-w-2xl mt-4 leading-relaxed tracking-wide"
@@ -63,7 +61,8 @@ import ProfileImage from "../ProfileImage.svelte";
         experience across the full engineering stack, from designing scalable
         backend services to managing cloud infrastructure and distributed
         systems. I've worked in academic research, industry-sponsored programs
-        (such as Bangkit Academy by Google, GoTo, and Traveloka), and end-to-end product delivery, and I bring the same attention to detail to both
+        (such as Bangkit Academy by Google, GoTo, and Traveloka), and end-to-end
+        product delivery, and I bring the same attention to detail to both
         exploratory research and production-ready engineering.
       </p>
 

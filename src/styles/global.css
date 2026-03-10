@@ -12,12 +12,30 @@
 
 /* Custom CSS Variables */
 @theme {
+  /* Colors */
   --color-deep-space: #0f172a;
   --color-nebula-purple: #2e1065;
   --color-slate-gray: #64748b;
   --color-cloud-white: #f8fafc;
   --color-neon-cyan: #22d3ee;
   --color-neon-purple: #c084fc;
+  /* Animations */
+  --animate-blob: blob 7s infinite;
+
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
 }
 
 :root {

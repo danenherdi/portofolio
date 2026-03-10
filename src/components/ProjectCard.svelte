@@ -22,7 +22,8 @@
         screenshots.map(async (path) => {
           try {
             const imageRef = ref(storage, path);
-            return await getDownloadURL(imageRef);
+            const url = await getDownloadURL(imageRef);
+            return url.split("&token=")[0];
           } catch (e) {
             console.warn(`Failed to retrieve image: ${path}`, e);
             return path;

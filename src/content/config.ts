@@ -6,7 +6,7 @@ const experience = defineCollection({
     organization: z.string(),
     startDate: z.date(),
     endDate: z.date().optional(), // Null or missing implies "Present"
-    category: z.enum(['Professional Work', 'Non-Formal Education']),
+    category: z.enum(['Professional Work', 'Non-Formal Education', 'Certifications']),
     order: z.number().default(99), // Used to sort them manually if dates aren't enough
   })
 });

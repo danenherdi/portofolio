@@ -34,6 +34,20 @@ const nonFormalEducation = allExperience
       }
   );
 
+const certifications = allExperience
+  .filter(
+    (entry: CollectionEntry<"experience">) =>
+      entry.data.category === "Certifications",
+  )
+  .sort(
+    (a: CollectionEntry<"experience">, b: CollectionEntry<"experience">) =>
+      {
+        const dateDiff = b.data.startDate.valueOf() - a.data.startDate.valueOf();
+        if (dateDiff !== 0) return dateDiff;
+        return (a.data.order ?? 99) - (b.data.order ?? 99);
+      }
+  );
+
 // Helper function to format dates
 function formatDateRange(start: Date, end?: Date) {
   const options: Intl.DateTimeFormatOptions = {
@@ -147,5 +161,49 @@ function formatDateRange(start: Date, end?: Date) {
         }
       </div>
     </div>
+
+    <!-- Certifications Timeline -->
+    {certifications.length > 0 && (
+      <>
+        <h4
+          class="text-xl md:text-2xl font-bold mb-8 text-emerald-800 dark:text-emerald-300 border-l-4 border-emerald-600 dark:border-emerald-500 pl-4 mt-16"
+        >
+          Certifications
+        </h4>
+        <div class="relative">
+          <!-- Global Timeline Line (Mobile) -->
+          <div
+            class="md:hidden absolute left-[15px] top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-700/50"
+          >
+          </div>
+          <!-- Global Timeline Line (Desktop) -->
+          <div
+            class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-700/50 -translate-x-1/2"
+          >
+          </div>
+
+          <div class="flex flex-col gap-12">
+            {
+              certifications.map(async (entry: any) => {
+                const { Content } = await entry.render();
+                return (
+                  <TimelineItem
+                    title={entry.data.title}
+                    organization={entry.data.organization}
+                    dateRange={formatDateRange(
+                      entry.data.startDate,
+                      entry.data.endDate,
+                    )}
+                    active={false}
+                  >
+                    <Content />
+                  </TimelineItem>
+                );
+              })
+            }
+          </div>
+        </div>
+      </>
+    )}
   </div>
 </section>
